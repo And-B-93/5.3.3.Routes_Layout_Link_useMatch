@@ -40,7 +40,11 @@ function App() {
       dispatch(fetchVacancies());
     }, 600);
     return () => clearTimeout(timer);
-  }, [dispatch, page, area, skills, search]);
+  }, [dispatch, search]);
+
+  useEffect(() => {
+    dispatch(fetchVacancies());
+  }, [dispatch, page, area, skills]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearch(e.target.value));
