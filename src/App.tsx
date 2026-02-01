@@ -36,18 +36,15 @@ function App() {
   const [newSkill, setNewSkill] = useState("");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      dispatch(fetchVacancies());
-    }, 600);
-    return () => clearTimeout(timer);
-  }, [dispatch, search]);
-
-  useEffect(() => {
     dispatch(fetchVacancies());
   }, [dispatch, page, area, skills]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearch(e.target.value));
+  };
+
+  const handleSearchClick = () => {
+    dispatch(fetchVacancies());
   };
 
   const handleAreaChange = (value: string | null) => {
@@ -87,7 +84,11 @@ function App() {
               value={search}
               onChange={handleSearchChange}
               leftSection={iconSearch}
+              style={{ width: "100%", marginRight: "24px" }}
             />
+            <div>
+              <Button onClick={handleSearchClick}>Найти</Button>
+            </div>
           </div>
         </div>
 
