@@ -12,13 +12,14 @@ h3 {
   width: 100%;
 }
 
-.search {
-  width: 100%;
+.title h2 {
+  margin-bottom: 0;
 }
 
-.vacancyCard {
-  height: 250px;
-  width: 660px;
-  border-radius: 12px;
-  padding: 24px;
+.title h3 {
+  margin-top: 0;
+}
+
+.search {
+  width: 100%;
 }

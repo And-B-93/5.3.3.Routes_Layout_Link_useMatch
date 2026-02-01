@@ -12,7 +12,6 @@ import {
   Stack,
   Flex,
   Text,
-  Image,
   Badge,
 } from "@mantine/core";
 import "./App.css";
@@ -27,7 +26,7 @@ import {
 } from "./reducers/fetchSlice";
 import type { AppDispatch } from "./store/store";
 import { Header } from "./components/Header";
-import Plus from "../public/Plus.svg";
+import { IconMapPin, IconPlus, IconSearch } from "@tabler/icons-react";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -65,6 +64,9 @@ function App() {
   if (loading) return <div>Загрузка...</div>;
   if (error) return <div>Ошибка: {error}</div>;
 
+  const iconMap = <IconMapPin />;
+  const iconSearch = <IconSearch />;
+  const iconPlus = <IconPlus />;
   return (
     <>
       <Header />
@@ -80,6 +82,7 @@ function App() {
               placeholder="Должность или название компании"
               value={search}
               onChange={handleSearchChange}
+              leftSection={iconSearch}
             />
           </div>
         </div>
@@ -99,13 +102,13 @@ function App() {
 
               <Group justify="space-between" style={{ width: "100%" }}>
                 <TextInput
-                  size="md"
+                  size="sm"
                   placeholder="Навык"
                   value={newSkill}
                   onChange={(e) => setNewSkill(e.target.value)}
                 />
-                <Button size="md" onClick={handleAddSkill}>
-                  <Image src={Plus} w={16} h={16} />
+                <Button size="sm" onClick={handleAddSkill}>
+                  {iconPlus}
                 </Button>
               </Group>
 
@@ -129,6 +132,7 @@ function App() {
               ]}
               value={area}
               onChange={handleAreaChange}
+              leftSection={iconMap}
               style={{
                 padding: "24px",
                 backgroundColor: "white",
@@ -137,29 +141,29 @@ function App() {
             />
           </Stack>
 
-          <Stack w={660} style={{ alignItems: "center" }}>
+          <Stack w={660} style={{ alignItems: "flex-end" }}>
             {vacancies.map((vacancy) => (
               <Stack
                 gap="xs"
-                className="vacancyCard"
                 key={vacancy.id}
                 style={{
                   border: "1px solid #dee2e6",
                   borderRadius: "12px",
                   backgroundColor: "white",
+                  minHeight: "250px !important",
+                  width: "660px ",
+                  padding: "24px",
                 }}
               >
-                <Title order={5} mb="xs">
-                  {vacancy.name}
-                </Title>
+                <Title order={5}>{vacancy.name}</Title>
 
-                <Group h={24}>
+                <Group>
                   <Text>
                     {vacancy.salary ? (
-                      <p>
+                      <>
                         {vacancy.salary.from} - {vacancy.salary.to}{" "}
                         {vacancy.salary.currency}
-                      </p>
+                      </>
                     ) : (
                       "з/п не указана"
                     )}
@@ -167,41 +171,68 @@ function App() {
                   <Text>Опыт: {vacancy.experience.name}</Text>
                 </Group>
 
-                <Text h={24} style={{ color: "lightgray" }}>
+                <Text size="xs" style={{ color: "lightgray" }}>
                   {vacancy.employer.name}
                 </Text>
 
-                <Text h={24}>
+                <Text size="xs">
                   {vacancy.work_format.map((format) => {
                     if (format.id === "REMOTE")
-                      return <Badge>{format.name}</Badge>;
+                      return <Badge size="xs">{format.name}</Badge>;
                     if (format.id === "HYBRID")
-                      return <Badge color="black">{format.name}</Badge>;
+                      return (
+                        <Badge color="black" size="xs">
+                          {format.name}
+                        </Badge>
+                      );
                     if (format.id === "ON_SITE")
-                      return <Badge color="gray">{format.name}</Badge>;
+                      return (
+                        <Badge color="gray" size="xs">
+                          {format.name}
+                        </Badge>
+                      );
                   })}
                 </Text>
 
-                <Text h={24}>{vacancy.area.name}</Text>
+                <Text h={20}>{vacancy.area.name}</Text>
 
-                <Group gap="md" mt="md">
-                  <Button color="black">Смотреть вакансию</Button>
-                  <Button color="lightgrey">
+                <Group gap="xs">
+                  <Button color="black" size="xs" variant="filled">
+                    Смотреть вакансию
+                  </Button>
+
+                  <Button
+                    variant="filled"
+                    size="xs"
+                    styles={{
+                      root: {
+                        backgroundColor: "lightgrey",
+                      },
+                    }}
+                  >
                     <span style={{ color: "black" }}>Откликнуться</span>
                   </Button>
                 </Group>
               </Stack>
             ))}
+            {totalPages > 0 && (
+              <Pagination.Root
+                total={totalPages}
+                onChange={handlePageChange}
+                value={page + 1}
+                style={{ margin: "24px" }}
+              >
+                <Group gap={5} justify="center">
+                  <Pagination.First />
+                  <Pagination.Previous />
+                  <Pagination.Items />
+                  <Pagination.Next />
+                  <Pagination.Last />
+                </Group>
+              </Pagination.Root>
+            )}
           </Stack>
         </Flex>
-
-        {totalPages > 0 && (
-          <Pagination
-            total={totalPages}
-            value={page + 1}
-            onChange={handlePageChange}
-          />
-        )}
       </Container>
     </>
   );
