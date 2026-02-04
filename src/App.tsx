@@ -62,6 +62,12 @@ function App() {
     dispatch(setPage(newPage - 1));
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleAddSkill();
+    }
+  };
+
   if (loading)
     return (
       <div
@@ -135,6 +141,7 @@ function App() {
                   placeholder="Навык"
                   value={newSkill}
                   onChange={(e) => setNewSkill(e.target.value)}
+                  onKeyDown={handleKeyPress}
                 />
                 <Button size="sm" onClick={handleAddSkill}>
                   {iconPlus}
@@ -170,7 +177,7 @@ function App() {
             />
           </Stack>
 
-          <Stack w={660} style={{ alignItems: "flex-end" }}>
+          <Stack w={660} style={{ alignItems: "center" }}>
             {vacancies.map((vacancy) => (
               <Stack
                 gap="xs"
@@ -207,16 +214,34 @@ function App() {
                 <Text size="xs">
                   {vacancy.work_format.map((format) => {
                     if (format.id === "REMOTE")
-                      return <Badge size="xs">{format.name}</Badge>;
+                      return (
+                        <Badge
+                          size="xs"
+                          radius="xs"
+                          style={{ marginLeft: "2px", marginRight: "2px" }}
+                        >
+                          {format.name}
+                        </Badge>
+                      );
                     if (format.id === "HYBRID")
                       return (
-                        <Badge color="black" size="xs">
+                        <Badge
+                          color="black"
+                          size="xs"
+                          radius="xs"
+                          style={{ marginLeft: "2px", marginRight: "2px" }}
+                        >
                           {format.name}
                         </Badge>
                       );
                     if (format.id === "ON_SITE")
                       return (
-                        <Badge color="gray" size="xs">
+                        <Badge
+                          color="gray"
+                          size="xs"
+                          radius="xs"
+                          style={{ marginLeft: "2px", marginRight: "2px" }}
+                        >
                           {format.name}
                         </Badge>
                       );
@@ -230,17 +255,19 @@ function App() {
                     Смотреть вакансию
                   </Button>
 
-                  <Button
-                    variant="filled"
-                    size="xs"
-                    styles={{
-                      root: {
-                        backgroundColor: "lightgrey",
-                      },
-                    }}
-                  >
-                    <span style={{ color: "black" }}>Откликнуться</span>
-                  </Button>
+                  <a type="button" href="https://hh.ru/">
+                    <Button
+                      variant="filled"
+                      size="xs"
+                      styles={{
+                        root: {
+                          backgroundColor: "lightgrey",
+                        },
+                      }}
+                    >
+                      <span style={{ color: "black" }}>Откликнуться</span>
+                    </Button>
+                  </a>
                 </Group>
               </Stack>
             ))}
