@@ -11,10 +11,9 @@ export function Header() {
         height: "60px",
         backgroundColor: "white",
         padding: "10px",
-        maxWidth: "1440px",
       }}
     >
-      <Group justify="space-between">
+      <Group justify="space-between" style={{ maxWidth: "1440px" }}>
         <Group>
           <Image h={30} w={30} src={HHImage} />
           <Text size="xl" fw={500} style={{ color: "#000000" }}>

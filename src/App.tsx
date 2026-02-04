@@ -102,7 +102,7 @@ function App() {
     <>
       <Header />
 
-      <Container size={1024}>
+      <Container size={1100}>
         <div className="titleSearch">
           <div className="title">
             <h2>Список вакансий</h2>
@@ -146,7 +146,7 @@ function App() {
                 Ключевые навыки
               </Text>
 
-              <Group style={{}}>
+              <Group justify="center">
                 <TextInput
                   size="sm"
                   placeholder="Навык"
@@ -154,9 +154,7 @@ function App() {
                   onChange={(e) => setNewSkill(e.target.value)}
                   onKeyDown={handleKeyPress}
                 />
-                <Button size="xs" onClick={handleAddSkill}>
-                  {iconPlus}
-                </Button>
+                <Button onClick={handleAddSkill}>{iconPlus}</Button>
               </Group>
 
               {skills.map((skill) => (
