@@ -1,0 +1,6 @@
+.active {
+  color: black !important;
+}
+.active > .point {
+  background-color: blue !important;
+}
