@@ -9,8 +9,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "clean": "if exist dist (rmdir /s /q dist) && if exist node_modules\\.cache\\gh-pages (rmdir /s /q node_modules\\.cache\\gh-pages)",
+    "predeploy": "npm run clean && npm run build",
+    "deploy": "gh-pages -d dist -f",
+    "postbuild": "copy dist\\index.html dist\\404.html"
   },
   "dependencies": {
     "@mantine/core": "^8.3.13",
