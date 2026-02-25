@@ -3,6 +3,7 @@ import { Image } from "@mantine/core";
 import HHImage from "../../public/HHImage.svg";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
+import { IconUser } from "@tabler/icons-react";
 
 export function Header() {
   const handleClickAboutme = () => {};
@@ -65,6 +66,7 @@ export function Header() {
             }}
             to="/aboutme"
           >
+            <IconUser />
             <div>Обо мне</div>{" "}
             <div
               className="point"
@@ -83,12 +85,3 @@ export function Header() {
     </header>
   );
 }
-<div
-  style={{
-    width: "10px",
-    height: "10px",
-    backgroundColor: "blue",
-    borderRadius: "50%",
-    margin: "0 5px",
-  }}
-/>;
