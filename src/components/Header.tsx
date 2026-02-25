@@ -21,10 +21,12 @@ export function Header() {
         style={{ maxWidth: "1440px", margin: "0 auto" }}
       >
         <Group>
-          <Image h={30} w={30} src={HHImage} />
-          <Text size="xl" fw={500} style={{ color: "#000000" }}>
-            .FrontEnd
-          </Text>
+          <NavLink to="/">
+            <Image h={30} w={30} src={HHImage} />
+            <Text size="xl" fw={500} style={{ color: "#000000" }}>
+              .FrontEnd
+            </Text>
+          </NavLink>
         </Group>
 
         <Group>
