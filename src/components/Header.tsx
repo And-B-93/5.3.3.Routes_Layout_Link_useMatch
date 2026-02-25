@@ -21,7 +21,18 @@ export function Header() {
         style={{ maxWidth: "1440px", margin: "0 auto" }}
       >
         <Group>
-          <NavLink to="/">
+          <NavLink
+            to="/"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              color: "grey",
+              fontSize: "16px",
+              fontWeight: 500,
+              textDecoration: "none",
+              alignItems: "center",
+            }}
+          >
             <Image h={30} w={30} src={HHImage} />
             <Text size="xl" fw={500} style={{ color: "#000000" }}>
               .FrontEnd
