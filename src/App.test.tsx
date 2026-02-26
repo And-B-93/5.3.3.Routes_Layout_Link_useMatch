@@ -7,12 +7,14 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { mockVacancies } from "./mocks/mockData";
 
+// Мок ResizeObserver
 global.ResizeObserver = class {
   observe() {}
   unobserve() {}
   disconnect() {}
 };
 
+// Мок ky
 vi.mock("ky", () => ({
   default: {
     get: vi.fn(() => ({
@@ -29,6 +31,7 @@ vi.mock("ky", () => ({
   },
 }));
 
+// Мок matchMedia
 beforeAll(() => {
   Object.defineProperty(window, "matchMedia", {
     writable: true,
@@ -45,46 +48,36 @@ beforeAll(() => {
   });
 });
 
-const mockStore = configureStore({
-  reducer: {
-    fetch: (
-      state = {
-        vacancies: mockVacancies,
-        loading: false,
-        error: null,
-        total: mockVacancies.length,
-        totalPages: 0,
-        search: "",
-        area: "",
-        skills: [],
-        page: 0,
-      },
-    ) => state,
-  },
-});
+// Создаем базовый store
+const createStore = (customState = {}) => {
+  const defaultState = {
+    vacancies: mockVacancies,
+    loading: false,
+    error: null,
+    total: mockVacancies.length,
+    totalPages: 1,
+    search: "",
+    area: "",
+    skills: [],
+    page: 0,
+    ...customState,
+  };
 
-const mockVacanciesMoscow = [mockVacancies[0]];
+  return configureStore({
+    reducer: {
+      fetch: (state = defaultState) => state,
+    },
+  });
+};
 
-const mockStoreMoscow = configureStore({
-  reducer: {
-    fetch: (
-      state = {
-        vacancies: mockVacanciesMoscow,
-        loading: false,
-        error: null,
-        total: mockVacanciesMoscow.length,
-        totalPages: 0,
-        search: "",
-        area: "1",
-        skills: [],
-        page: 0,
-      },
-    ) => state,
-  },
+const mockStore = createStore();
+const mockStoreMoscow = createStore({
+  vacancies: [mockVacancies[0]],
+  area: "1",
 });
 
 describe("App component", function () {
-  it("должен рендерить app", async () => {
+  it("должен рендерить app с вакансиями", async () => {
     render(
       <Provider store={mockStore}>
         <MantineProvider>
@@ -95,11 +88,15 @@ describe("App component", function () {
 
     await waitFor(() => {
       expect(screen.getByText(/Список вакансий/i)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
       expect(screen.getByText(/вакансия 1/i)).toBeInTheDocument();
       expect(screen.getByText(/вакансия 2/i)).toBeInTheDocument();
     });
   });
-  it("присутсвует только вакансия 1 из Москвы", () => {
+
+  it("при фильтрации по Москве отображается только вакансия 1", async () => {
     render(
       <Provider store={mockStoreMoscow}>
         <MantineProvider>
@@ -107,7 +104,11 @@ describe("App component", function () {
         </MantineProvider>
       </Provider>,
     );
-    expect(screen.getByText(/вакансия 1/i)).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText(/вакансия 1/i)).toBeInTheDocument();
+    });
+
     expect(screen.queryByText(/вакансия 2/i)).not.toBeInTheDocument();
   });
 });

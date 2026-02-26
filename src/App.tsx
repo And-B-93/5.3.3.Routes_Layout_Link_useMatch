@@ -15,7 +15,6 @@ const App = () => {
     createRoutesFromElements(
       <Route element={<Lyaout />}>
         <Route path="/" element={<Vacancies />} />
-        {/* <Route path="/vacancies" element={<Vacancies />} /> */}
         <Route path="/vacancies/:id" element={<DescriptionVacancy />} />
         <Route path="/aboutme" element={<AboutMe />} />
         <Route path="*" element={<ErrorPage />} />
