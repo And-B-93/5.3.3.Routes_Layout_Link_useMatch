@@ -4,7 +4,6 @@ import {
   type PayloadAction,
 } from "@reduxjs/toolkit";
 import ky from "ky";
-import type { Vacancy, VacanciesResponse } from "../types/types";
 
 interface VacanciesState {
   vacancies: Vacancy[];

@@ -1,34 +1,34 @@
-export interface Area {
+interface Area {
   id: string;
   name: string;
 }
 
-export interface Salary {
+interface Salary {
   from: string;
   to: string;
   currency: string;
 }
 
-export interface Employer {
+interface Employer {
   id: string;
   name: string;
 }
 
-export interface WorkFormat {
+interface WorkFormat {
   id: string;
   name: string;
 }
 
-export interface Experience {
+interface Experience {
   id: string;
   name: string;
 }
 
-export interface Key_skill {
-  name: Array<{ name: string }>;
+interface Key_skill {
+  name: string;
 }
 
-export interface Vacancy {
+interface Vacancy {
   id: string;
   name: string;
   area: Area;
@@ -36,11 +36,11 @@ export interface Vacancy {
   employer: Employer;
   work_format: WorkFormat[];
   experience: Experience;
-  key_skill: Key_skill;
+  key_skill: Key_skill[];
   description: string;
 }
 
-export interface VacanciesResponse {
+interface VacanciesResponse {
   items: Vacancy[];
   pages: number;
   page: number;
