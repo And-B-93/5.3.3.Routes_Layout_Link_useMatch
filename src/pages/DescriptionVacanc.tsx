@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import type { Vacancy } from "../types/types";
 import { useEffect, useState } from "react";
 import { Container } from "@mantine/core";
 import ky from "ky";

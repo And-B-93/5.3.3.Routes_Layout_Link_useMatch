@@ -1,5 +1,5 @@
 import { Badge, Button, Group, Stack, Text, Title } from "@mantine/core";
-import type { Vacancy } from "../types/types";
+
 import { Link } from "react-router-dom";
 import { ErrorPage } from "../pages/ErrorPage";
 
