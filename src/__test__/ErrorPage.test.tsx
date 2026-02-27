@@ -5,7 +5,7 @@ import { ErrorPage } from "../pages/ErrorPage";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import "@testing-library/jest-dom";
 
-// ========== Мок для matchMedia (обязательно для Mantine) ==========
+
 beforeAll(() => {
   Object.defineProperty(window, "matchMedia", {
     writable: true,
