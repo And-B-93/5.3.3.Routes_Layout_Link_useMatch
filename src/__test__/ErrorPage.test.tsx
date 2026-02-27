@@ -23,7 +23,7 @@ beforeAll(() => {
 });
 
 describe("ErrorPage", () => {
-  it("отображает сообщение об ошибке 404", () => {
+  it("отображает сообщение об ошибке", () => {
     render(
       <MantineProvider>
         <BrowserRouter>
